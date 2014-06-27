@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{D078A74E-B3A8-40A7-89DE-0B5113426215}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Tester</RootNamespace>
+    <AssemblyName>Tester</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Npgsql, Version=2.0.12.0, Culture=neutral, PublicKeyToken=5d8b90d52f46fda7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\DataHelper\Lib\Npgsql.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Microsoft.ApplicationBlocks.Data.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FirebirdHelper\FirebirdHelper.csproj">
+      <Project>{6139daac-1580-4fd0-8ef0-fbbaf8278a45}</Project>
+      <Name>FirebirdHelper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\InformixHelper\InformixHelper.csproj">
+      <Project>{b3e50f7b-96eb-4a0a-967b-5205a07702ad}</Project>
+      <Name>InformixHelper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MySqlHelper\MySqlHelper.csproj">
+      <Project>{d5f5a37a-dd36-431e-b920-1569938287d9}</Project>
+      <Name>MySqlHelper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OdbcHelper\OdbcHelper.csproj">
+      <Project>{4a86fc60-250e-4f16-95ce-4ea624d088da}</Project>
+      <Name>OdbcHelper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OleDbHelper\OleDbHelper.csproj">
+      <Project>{ef916c49-620b-4d78-a661-100c16ee615d}</Project>
+      <Name>OleDbHelper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OracleHelper\OracleHelper.csproj">
+      <Project>{1fbefddd-dc0c-4eb1-bb2c-b991e527fff4}</Project>
+      <Name>OracleHelper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PostgresHelper\PostgresHelper.csproj">
+      <Project>{e4fcc48b-ece0-490c-a557-e866a9f907b7}</Project>
+      <Name>PostgresHelper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SqlHelper\SqlServerHelper.csproj">
+      <Project>{360fa0cb-d92d-4ff5-b0a1-fab52f2e7de6}</Project>
+      <Name>SqlServerHelper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SqLiteHelper\SqLiteHelper.csproj">
+      <Project>{280ae556-7066-45ab-8b41-d93138984388}</Project>
+      <Name>SqLiteHelper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SqlServerCeHelper\SqlServerCeHelper.csproj">
+      <Project>{c2db0fbc-e3e3-4cb6-899e-eb91fd815fd4}</Project>
+      <Name>SqlServerCeHelper</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
