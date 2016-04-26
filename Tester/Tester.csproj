@@ -39,7 +39,7 @@
   <ItemGroup>
     <Reference Include="Npgsql, Version=2.0.12.0, Culture=neutral, PublicKeyToken=5d8b90d52f46fda7, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\DataHelper\Lib\Npgsql.dll</HintPath>
+      <HintPath>..\PostgresHelper\lib\Npgsql.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
@@ -94,10 +94,6 @@
       <Project>{6139daac-1580-4fd0-8ef0-fbbaf8278a45}</Project>
       <Name>FirebirdHelper</Name>
     </ProjectReference>
-    <ProjectReference Include="..\InformixHelper\InformixHelper.csproj">
-      <Project>{b3e50f7b-96eb-4a0a-967b-5205a07702ad}</Project>
-      <Name>InformixHelper</Name>
-    </ProjectReference>
     <ProjectReference Include="..\MySqlHelper\MySqlHelper.csproj">
       <Project>{d5f5a37a-dd36-431e-b920-1569938287d9}</Project>
       <Name>MySqlHelper</Name>
@@ -113,10 +109,6 @@
     <ProjectReference Include="..\OracleHelper\OracleHelper.csproj">
       <Project>{1fbefddd-dc0c-4eb1-bb2c-b991e527fff4}</Project>
       <Name>OracleHelper</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\PostgresHelper\PostgresHelper.csproj">
-      <Project>{e4fcc48b-ece0-490c-a557-e866a9f907b7}</Project>
-      <Name>PostgresHelper</Name>
     </ProjectReference>
     <ProjectReference Include="..\SqlHelper\SqlServerHelper.csproj">
       <Project>{360fa0cb-d92d-4ff5-b0a1-fab52f2e7de6}</Project>

@@ -208,14 +208,14 @@ namespace Tester
             try
             {
 
-                PostgresHelper.ExecuteNonQuery(Properties.Settings.Default.TestingPg,
-                    CommandType.Text,
-                    "insert into tablita values (3, :col2, :ahora)",
-                    new NpgsqlParameter(":col2", "juancito"),
-                    new NpgsqlParameter(":ahora", DateTime.Now)
-                    );
+                //PostgresHelper.ExecuteNonQuery(Properties.Settings.Default.TestingPg,
+                //    CommandType.Text,
+                //    "insert into tablita values (3, :col2, :ahora)",
+                //    new NpgsqlParameter(":col2", "juancito"),
+                //    new NpgsqlParameter(":ahora", DateTime.Now)
+                //    );
 
-                MessageBox.Show("ejecutado");
+                //MessageBox.Show("ejecutado");
             }
             catch (Exception ex)
             {
@@ -227,11 +227,11 @@ namespace Tester
         {
             try
             {
-                dataGridView1.DataSource = PostgresHelper.ExecuteDataSet(Properties.Settings.Default.TestingPg,
-                    CommandType.Text,
-                    "select * from tablita",
-                    new NpgsqlParameter(":col2", "juancito")
-                    ).Tables[0];
+                //dataGridView1.DataSource = PostgresHelper.ExecuteDataSet(Properties.Settings.Default.TestingPg,
+                //    CommandType.Text,
+                //    "select * from tablita",
+                //    new NpgsqlParameter(":col2", "juancito")
+                //    ).Tables[0];
             }
             catch (Exception ex)
             {
@@ -243,10 +243,10 @@ namespace Tester
         {
             try
             {
-                dataGridView1.DataSource = PostgresHelper.ExecuteDataTable(Properties.Settings.Default.TestingPg,
-                        CommandType.StoredProcedure,
-                        "foo"
-                        );
+                //dataGridView1.DataSource = PostgresHelper.ExecuteDataTable(Properties.Settings.Default.TestingPg,
+                //        CommandType.StoredProcedure,
+                //        "foo"
+                //        );
             }
             catch (Exception ex)
             {
