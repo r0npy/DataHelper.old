@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 using IBM.Data.Informix;
 
 namespace Universal.Data
@@ -36,6 +37,23 @@ namespace Universal.Data
         }
 
         /// <summary>
+        /// Prepara el Objeto Command especializa para la Base de Datos
+        /// </summary>
+        /// <param name="sqlCommand"></param>
+        /// <param name="commandType"></param>
+        /// <param name="commandTimeout"></param>
+        /// <returns></returns>
+        protected override IDbCommand Comando(string sqlCommand, CommandType commandType, int commandTimeout)
+        {
+            return new IfxCommand(sqlCommand)
+            {
+                CommandType = commandType,
+                CommandTimeout = commandTimeout,
+                Connection = (IfxConnection)Conexion
+            };
+        }
+
+        /// <summary>
         /// Prepara el Objeto Command especializa para la Base de Datos, recibiendo el objeto de transaccion.
         /// </summary>
         /// <param name="transaction"></param>
@@ -49,6 +67,25 @@ namespace Universal.Data
                 CommandType = commandType,
                 Connection = (IfxConnection)transaction.Connection,
                 Transaction = (IfxTransaction) transaction
+            };
+        }
+
+        /// <summary>
+        /// Prepara el Objeto Command especializa para la Base de Datos, recibiendo el objeto de transaccion.
+        /// </summary>
+        /// <param name="transaction"></param>
+        /// <param name="sqlCommand"></param>
+        /// <param name="commandType"></param>
+        /// <param name="commandTimeout"></param>
+        /// <returns></returns>
+        protected override IDbCommand Comando(IDbTransaction transaction, string sqlCommand, CommandType commandType, int commandTimeout)
+        {
+            return new IfxCommand(sqlCommand)
+            {
+                CommandType = commandType,
+                CommandTimeout = commandTimeout,
+                Connection = (IfxConnection)transaction.Connection,
+                Transaction = (IfxTransaction)transaction
             };
         }
 
@@ -78,6 +115,22 @@ namespace Universal.Data
         }
 
         /// <summary>
+        /// Aprovecha el método Comando para crear el comando necesario.
+        /// </summary>
+        /// <param name="sqlCommand"></param>
+        /// <param name="commandType"></param>
+        /// <param name="commandTimeout"></param>
+        /// <param name="args"></param>
+        /// <returns></returns>
+        protected override IDataAdapter CrearDataAdapter(string sqlCommand, CommandType commandType, int commandTimeout, params IDbDataParameter[] args)
+        {
+            var da = new IfxDataAdapter((IfxCommand)Comando(sqlCommand, commandType, commandTimeout));
+            if (args.Length != 0)
+                CargarParametros(da.SelectCommand, args);
+            return da;
+        }
+
+        /// <summary>
         /// Aprovecha el método Comando para crear el comando necesario, recibiendo el objeto de transaccion
         /// </summary>
         /// <param name="transaction"></param>
@@ -89,6 +142,23 @@ namespace Universal.Data
             CommandType commandType, params IDbDataParameter[] args)
         {
             var da = new IfxDataAdapter(((IfxCommand)Comando(transaction, sqlCommand, commandType)));
+            if (args.Length != 0)
+                CargarParametros(da.SelectCommand, args);
+            return da;
+        }
+
+        /// <summary>
+        /// Aprovecha el método Comando para crear el comando necesario, recibiendo el objeto de transaccion
+        /// </summary>
+        /// <param name="transaction"></param>
+        /// <param name="sqlCommand"></param>
+        /// <param name="commandType"></param>
+        /// <param name="commandTimeout"></param>
+        /// <param name="args"></param>
+        /// <returns></returns>
+        protected override IDataAdapter CrearDataAdapter(IDbTransaction transaction, string sqlCommand, CommandType commandType, int commandTimeout, params IDbDataParameter[] args)
+        {
+            var da = new IfxDataAdapter(((IfxCommand)Comando(transaction, sqlCommand, commandType, commandTimeout)));
             if (args.Length != 0)
                 CargarParametros(da.SelectCommand, args);
             return da;

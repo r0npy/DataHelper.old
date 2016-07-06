@@ -24,9 +24,14 @@ namespace Universal.Data
         #region Métodos Abstractos
         protected abstract IDbConnection CrearConexion(string connectionString);
         protected abstract IDbCommand Comando(string sqlCommand, CommandType commandType);
+        protected abstract IDbCommand Comando(string sqlCommand, CommandType commandType, int commandTimeout);
         protected abstract IDbCommand Comando(IDbTransaction transaction, string sqlCommand, CommandType commandType);
+        protected abstract IDbCommand Comando(IDbTransaction transaction, string sqlCommand, CommandType commandType, int commandTimeout);
         protected abstract IDataAdapter CrearDataAdapter(string sqlCommand, CommandType commandType, params IDbDataParameter[] args);
+
+        protected abstract IDataAdapter CrearDataAdapter(string sqlCommand, CommandType commandType, int commandTimeout, params IDbDataParameter[] args);
         protected abstract IDataAdapter CrearDataAdapter(IDbTransaction transaction, string sqlCommand, CommandType commandType, params IDbDataParameter[] args);
+        protected abstract IDataAdapter CrearDataAdapter(IDbTransaction transaction, string sqlCommand, CommandType commandType, int commandTimeout, params IDbDataParameter[] args);
         protected abstract void CargarParametros(IDbCommand command, params IDbDataParameter[] args);
 
         #endregion
@@ -87,6 +92,20 @@ namespace Universal.Data
         }
 
         /// <summary>
+        /// Obtiene un DataSet a partir de un Procedimiento Almacenado o Query SQL. 
+        /// </summary>
+        /// <param name="sqlCommand"></param>
+        /// <param name="commandType"></param>
+        /// <param name="args"></param>
+        /// <returns></returns>
+        public DataSet ExecuteDataSet(string sqlCommand, CommandType commandType, int commandTimeout, params IDbDataParameter[] args)
+        {
+            var mDataSet = new DataSet();
+            CrearDataAdapter(sqlCommand, commandType, commandTimeout, args).Fill(mDataSet);
+            return mDataSet;
+        }
+
+        /// <summary>
         /// Obtiene un DataSet a partir de un Procedimiento Almacenado o Query SQL, 
         /// recibiendo la transaccion en la misma
         /// </summary>
@@ -104,6 +123,22 @@ namespace Universal.Data
         }
 
         /// <summary>
+        /// Obtiene un DataSet a partir de un Procedimiento Almacenado o Query SQL, 
+        /// </summary>
+        /// <param name="transaction"></param>
+        /// <param name="sqlCommand"></param>
+        /// <param name="commandType"></param>
+        /// <param name="args"></param>
+        /// <returns></returns>
+        public DataSet ExecuteDataSet(IDbTransaction transaction, string sqlCommand, CommandType commandType, int commandTimeout, params IDbDataParameter[] args)
+        {
+            var mDataSet = new DataSet();
+            var da = CrearDataAdapter(transaction, sqlCommand, commandType, commandTimeout, args);
+            da.Fill(mDataSet);
+            return mDataSet;
+        }
+
+        /// <summary>
         /// Obtiene un DataReader a partir de un Procedimiento Almacenado o Query SQL
         /// </summary>
         /// <param name="sqlCommand"></param>
@@ -113,6 +148,22 @@ namespace Universal.Data
         public IDataReader ExecuteReader(string sqlCommand, CommandType commandType, params IDbDataParameter[] args)
         {
             var com = Comando(sqlCommand, commandType);
+            CargarParametros(com, args);
+            AbrirConexion();
+            return com.ExecuteReader(CommandBehavior.CloseConnection);
+        }
+
+        /// <summary>
+        /// Obtiene un DataReader a partir de un Procedimiento Almacenado o Query SQL
+        /// </summary>
+        /// <param name="sqlCommand"></param>
+        /// <param name="commandType"></param>
+        /// <param name="commandTimeout"></param>
+        /// <param name="args"></param>
+        /// <returns></returns>
+        public IDataReader ExecuteReader(string sqlCommand, CommandType commandType, int commandTimeout, params IDbDataParameter[] args)
+        {
+            var com = Comando(sqlCommand, commandType, commandTimeout);
             CargarParametros(com, args);
             AbrirConexion();
             return com.ExecuteReader(CommandBehavior.CloseConnection);
@@ -135,6 +186,23 @@ namespace Universal.Data
         }
 
         /// <summary>
+        /// Obtiene un DataReader a partir de un Procedimiento Almacenado o Query SQL,
+        /// recibiendo la transaccion en la misma
+        /// </summary>
+        /// <param name="transaction"></param>
+        /// <param name="sqlCommand"></param>
+        /// <param name="commandType"></param>
+        /// <param name="commandTimeout"></param>
+        /// <param name="args"></param>
+        /// <returns></returns>
+        public IDataReader ExecuteReader(IDbTransaction transaction, string sqlCommand, CommandType commandType, int commandTimeout, params IDbDataParameter[] args)
+        {
+            var com = Comando(transaction, sqlCommand, commandType, commandTimeout);
+            CargarParametros(com, args);
+            return com.ExecuteReader(CommandBehavior.Default);
+        }
+
+        /// <summary>
         /// Obtiene un Valor a partir de un Procedimiento Almacenado, y sus parámetros. 
         /// </summary>
         /// <param name="sqlCommand"></param>
@@ -148,6 +216,37 @@ namespace Universal.Data
                 var result = new ArrayList();
 
                 var com = Comando(sqlCommand, commandType);
+                CargarParametros(com, args);
+                AbrirConexion();
+                com.ExecuteNonQuery();
+
+                foreach (IDataParameter param in com.Parameters)
+                    if (param.Direction == ParameterDirection.Output || param.Direction == ParameterDirection.InputOutput)
+                        result.Add(param.Value);
+
+                return result;
+            }
+            finally
+            {
+                CerrarConexion();
+            }
+        }
+
+        /// <summary>
+        /// Obtiene un Valor a partir de un Procedimiento Almacenado, y sus parámetros. 
+        /// </summary>
+        /// <param name="sqlCommand"></param>
+        /// <param name="commandType"></param>
+        /// <param name="commandTimeout"></param>
+        /// <param name="args"></param>
+        /// <returns></returns>
+        public ArrayList ExecuteOutputValue(string sqlCommand, CommandType commandType, int commandTimeout, params IDbDataParameter[] args)
+        {
+            try
+            {
+                var result = new ArrayList();
+
+                var com = Comando(sqlCommand, commandType, commandTimeout);
                 CargarParametros(com, args);
                 AbrirConexion();
                 com.ExecuteNonQuery();
@@ -188,6 +287,30 @@ namespace Universal.Data
         }
 
         /// <summary>
+        /// Obtiene un Valor a partir de un Procedimiento Almacenado o Query SQL,
+        /// recibiendo la transaccion en la misma
+        /// </summary>
+        /// <param name="transaction"></param>
+        /// <param name="sqlCommand"></param>
+        /// <param name="commandType"></param>
+        /// <param name="commandTimeout"></param>
+        /// <param name="args"></param>
+        /// <returns></returns>
+        public ArrayList ExecuteOutputValue(IDbTransaction transaction, string sqlCommand, CommandType commandType, int commandTimeout, params IDbDataParameter[] args)
+        {
+            var result = new ArrayList();
+            var com = Comando(transaction, sqlCommand, commandType, commandTimeout);
+            CargarParametros(com, args);
+            com.ExecuteNonQuery();
+
+            foreach (IDataParameter param in com.Parameters)
+                if (param.Direction == ParameterDirection.Output || param.Direction == ParameterDirection.InputOutput)
+                    result.Add(param.Value);
+
+            return result;
+        }
+
+        /// <summary>
         /// Obtiene un Valor de una funcion Escalar a partir de un Procedimiento Almacenado o Query SQL
         /// </summary>
         /// <param name="sqlCommand"></param>
@@ -210,6 +333,29 @@ namespace Universal.Data
         }
 
         /// <summary>
+        /// Obtiene un Valor de una funcion Escalar a partir de un Procedimiento Almacenado o Query SQL 
+        /// </summary>
+        /// <param name="sqlCommand"></param>
+        /// <param name="commandType"></param>
+        /// <param name="commandTimeout"></param>
+        /// <param name="args"></param>
+        /// <returns></returns>
+        public Object ExecuteScalar(string sqlCommand, CommandType commandType, int commandTimeout, params IDbDataParameter[] args)
+        {
+            try
+            {
+                var com = Comando(sqlCommand, commandType, commandTimeout);
+                CargarParametros(com, args);
+                AbrirConexion();
+                return com.ExecuteScalar();
+            }
+            finally
+            {
+                CerrarConexion();
+            }
+        }
+
+        /// <summary>
         /// Obtiene un Valor de una funcion Escalar a partir de un Procedimiento Almacenado o Query SQL, 
         /// recibiendo la transaccion en la misma
         /// </summary>
@@ -221,6 +367,23 @@ namespace Universal.Data
         public Object ExecuteScalar(IDbTransaction transaction, string sqlCommand, CommandType commandType, params IDbDataParameter[] args)
         {
             var com = Comando(transaction, sqlCommand, commandType);
+            CargarParametros(com, args);
+            return com.ExecuteScalar();
+        }
+
+        /// <summary>
+        /// Obtiene un Valor de una funcion Escalar a partir de un Procedimiento Almacenado o Query SQL, 
+        /// recibiendo la transaccion en la misma
+        /// </summary>
+        /// <param name="transaction"></param>
+        /// <param name="sqlCommand"></param>
+        /// <param name="commandType"></param>
+        /// <param name="commandTimeout"></param>
+        /// <param name="args"></param>
+        /// <returns></returns>
+        public Object ExecuteScalar(IDbTransaction transaction, string sqlCommand, CommandType commandType, int commandTimeout, params IDbDataParameter[] args)
+        {
+            var com = Comando(transaction, sqlCommand, commandType, commandTimeout);
             CargarParametros(com, args);
             return com.ExecuteScalar();
         }
@@ -252,6 +415,29 @@ namespace Universal.Data
         }
 
         /// <summary>
+        /// Ejecuta un Procedimiento Almacenado o Query SQL en la base de datos 
+        /// </summary>
+        /// <param name="sqlCommand"></param>
+        /// <param name="commandType"></param>
+        /// <param name="commandTimeout"></param>
+        /// <param name="args"></param>
+        /// <returns></returns>
+        public int ExecuteNonQuery(string sqlCommand, CommandType commandType, int commandTimeout, params IDbDataParameter[] args)
+        {
+            try
+            {
+                var com = Comando(sqlCommand, commandType, commandTimeout);
+                CargarParametros(com, args);
+                AbrirConexion();
+                return com.ExecuteNonQuery();
+            }
+            finally
+            {
+                CerrarConexion();
+            }
+        }
+
+        /// <summary>
         /// Ejecuta un Procedimiento Almacenado o Query SQL en la base de datos, 
         /// recibiendo la transaccion en la misma
         /// </summary>
@@ -263,6 +449,23 @@ namespace Universal.Data
         public int ExecuteNonQuery(IDbTransaction transaction, string sqlCommand, CommandType commandType, params IDbDataParameter[] args)
         {
             var com = Comando(transaction, sqlCommand, commandType);
+            CargarParametros(com, args);
+            return com.ExecuteNonQuery();
+        }
+
+        /// <summary>
+        /// Ejecuta un Procedimiento Almacenado o Query SQL en la base de datos, 
+        /// recibiendo la transaccion en la misma
+        /// </summary>
+        /// <param name="transaction"></param>
+        /// <param name="sqlCommand"></param>
+        /// <param name="commandType"></param>
+        /// <param name="commandTimeout"></param>
+        /// <param name="args"></param>
+        /// <returns></returns>
+        public int ExecuteNonQuery(IDbTransaction transaction, string sqlCommand, CommandType commandType, int commandTimeout, params IDbDataParameter[] args)
+        {
+            var com = Comando(transaction, sqlCommand, commandType, commandTimeout);
             CargarParametros(com, args);
             return com.ExecuteNonQuery();
         }
