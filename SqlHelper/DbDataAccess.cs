@@ -96,6 +96,7 @@ namespace Universal.Data
         /// </summary>
         /// <param name="sqlCommand"></param>
         /// <param name="commandType"></param>
+        /// <param name="commandTimeout"></param>
         /// <param name="args"></param>
         /// <returns></returns>
         public DataSet ExecuteDataSet(string sqlCommand, CommandType commandType, int commandTimeout, params IDbDataParameter[] args)
