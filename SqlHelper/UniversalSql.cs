@@ -13,7 +13,7 @@ namespace Universal.Data
         /// </summary>
         /// <param name="command"></param>
         /// <param name="args"></param>
-        protected override void CargarParametros(IDbCommand command, params IDbDataParameter[] args)
+        protected override void CargarParametros(SqlCommand command, params SqlParameter[] args)
         {
             command.Parameters.Clear();
             foreach (SqlParameter param in args)
@@ -26,12 +26,12 @@ namespace Universal.Data
         /// <param name="sqlCommand"></param>
         /// <param name="commandType"></param>
         /// <returns></returns>
-        protected override IDbCommand Comando(string sqlCommand, CommandType commandType)
+        protected override SqlCommand Comando(string sqlCommand, CommandType commandType)
         {
             return new SqlCommand(sqlCommand)
             {
                 CommandType = commandType,
-                Connection = (SqlConnection)Conexion
+                Connection = Conexion
             };
         }
 
@@ -42,13 +42,13 @@ namespace Universal.Data
         /// <param name="commandType"></param>
         /// <param name="commandTimeout"></param>
         /// <returns></returns>
-        protected override IDbCommand Comando(string sqlCommand, CommandType commandType, int commandTimeout)
+        protected override SqlCommand Comando(string sqlCommand, CommandType commandType, int commandTimeout)
         {
             return new SqlCommand(sqlCommand)
             {
                 CommandType = commandType,
                 CommandTimeout = commandTimeout,
-                Connection = (SqlConnection)Conexion
+                Connection = Conexion
             };
         }
 
@@ -59,13 +59,13 @@ namespace Universal.Data
         /// <param name="sqlCommand"></param>
         /// <param name="commandType"></param>
         /// <returns></returns>
-        protected override IDbCommand Comando(IDbTransaction transaction, string sqlCommand, CommandType commandType)
+        protected override SqlCommand Comando(SqlTransaction transaction, string sqlCommand, CommandType commandType)
         {
             return new SqlCommand(sqlCommand)
             {
                 CommandType = commandType,
-                Connection = (SqlConnection)transaction.Connection,
-                Transaction = (SqlTransaction)transaction
+                Connection = transaction.Connection,
+                Transaction = transaction
             };
         }
 
@@ -77,7 +77,7 @@ namespace Universal.Data
         /// <param name="commandType"></param>
         /// <param name="commandTimeout"></param>
         /// <returns></returns>
-        protected override IDbCommand Comando(IDbTransaction transaction, string sqlCommand, CommandType commandType, int commandTimeout)
+        protected override SqlCommand Comando(SqlTransaction transaction, string sqlCommand, CommandType commandType, int commandTimeout)
         {
             return new SqlCommand(sqlCommand)
             {
@@ -94,7 +94,7 @@ namespace Universal.Data
         /// </summary>
         /// <param name="connectionString">Cadena de Conexión para conectarse a la base de datos</param>
         /// <returns></returns>
-        protected override IDbConnection CrearConexion(string connectionString)
+        protected override SqlConnection CrearConexion(string connectionString)
         { return new SqlConnection(connectionString); }
 
         /// <summary>
@@ -104,10 +104,10 @@ namespace Universal.Data
         /// <param name="commandType"></param>
         /// <param name="args"></param>
         /// <returns></returns>
-        protected override IDataAdapter CrearDataAdapter(string sqlCommand,
-            CommandType commandType, params IDbDataParameter[] args)
+        protected override SqlDataAdapter CrearDataAdapter(string sqlCommand,
+            CommandType commandType, params SqlParameter[] args)
         {
-            var da = new SqlDataAdapter((SqlCommand)Comando(sqlCommand, commandType));
+            var da = new SqlDataAdapter(Comando(sqlCommand, commandType));
             if (args.Length != 0)
                 CargarParametros(da.SelectCommand, args);
             return da;
@@ -121,9 +121,9 @@ namespace Universal.Data
         /// <param name="commandTimeout"></param>
         /// <param name="args"></param>
         /// <returns></returns>
-        protected override IDataAdapter CrearDataAdapter(string sqlCommand, CommandType commandType, int commandTimeout, params IDbDataParameter[] args)
+        protected override SqlDataAdapter CrearDataAdapter(string sqlCommand, CommandType commandType, int commandTimeout, params SqlParameter[] args)
         {
-            var da = new SqlDataAdapter((SqlCommand)Comando(sqlCommand, commandType, commandTimeout));
+            var da = new SqlDataAdapter(Comando(sqlCommand, commandType, commandTimeout));
             if (args.Length != 0)
                 CargarParametros(da.SelectCommand, args);
             return da;
@@ -137,8 +137,8 @@ namespace Universal.Data
         /// <param name="commandType"></param>
         /// <param name="args"></param>
         /// <returns></returns>
-        protected override IDataAdapter CrearDataAdapter(IDbTransaction transaction, string sqlCommand,
-            CommandType commandType, params IDbDataParameter[] args)
+        protected override SqlDataAdapter CrearDataAdapter(SqlTransaction transaction, string sqlCommand,
+            CommandType commandType, params SqlParameter[] args)
         {
             var da = new SqlDataAdapter(((SqlCommand)Comando(transaction, sqlCommand, commandType)));
             if (args.Length != 0)
@@ -155,7 +155,7 @@ namespace Universal.Data
         /// <param name="commandTimeout"></param>
         /// <param name="args"></param>
         /// <returns></returns>
-        protected override IDataAdapter CrearDataAdapter(IDbTransaction transaction, string sqlCommand, CommandType commandType, int commandTimeout, params IDbDataParameter[] args)
+        protected override SqlDataAdapter CrearDataAdapter(SqlTransaction transaction, string sqlCommand, CommandType commandType, int commandTimeout, params SqlParameter[] args)
         {
             var da = new SqlDataAdapter(((SqlCommand)Comando(transaction, sqlCommand, commandType, commandTimeout)));
             if (args.Length != 0)
