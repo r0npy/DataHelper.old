@@ -94,11 +94,18 @@ abstract class DbDataAccess
     /// <returns></returns>
     public DataSet ExecuteDataSet(string sqlCommand, CommandType commandType, params SqlParameter[] args)
     {
-        var ds = new DataSet();
-        var da = CrearDataAdapter(sqlCommand, commandType, args);
-        da.SelectCommand.Connection.Open();
-        da.Fill(ds);
-        return ds;
+        try
+        {
+            var ds = new DataSet();
+            var da = CrearDataAdapter(sqlCommand, commandType, args);
+            da.SelectCommand.Connection.Open();
+            da.Fill(ds);
+            return ds;
+        }
+        finally
+        {
+            CerrarConexion();
+        }
     }
 
     /// <summary>
@@ -110,11 +117,18 @@ abstract class DbDataAccess
     /// <returns></returns>
     public async Task<DataSet> ExecuteDataSetAsync(string sqlCommand, CommandType commandType, params SqlParameter[] args)
     {
-        var ds = new DataSet();
-        var da = CrearDataAdapter(sqlCommand, commandType, args);
-        await da.SelectCommand.Connection.OpenAsync();
-        da.Fill(ds);
-        return ds;
+        try
+        {
+            var ds = new DataSet();
+            var da = CrearDataAdapter(sqlCommand, commandType, args);
+            await da.SelectCommand.Connection.OpenAsync();
+            da.Fill(ds);
+            return ds;
+        }
+        finally
+        {
+            CerrarConexion();
+        }
     }
 
     /// <summary>
@@ -127,11 +141,18 @@ abstract class DbDataAccess
     /// <returns></returns>
     public DataSet ExecuteDataSet(string sqlCommand, CommandType commandType, int commandTimeout, params SqlParameter[] args)
     {
-        var ds = new DataSet();
-        var da = CrearDataAdapter(sqlCommand, commandType, commandTimeout, args);
-        da.SelectCommand.Connection.Open();
-        da.Fill(ds);
-        return ds;
+        try
+        {
+            var ds = new DataSet();
+            var da = CrearDataAdapter(sqlCommand, commandType, commandTimeout, args);
+            da.SelectCommand.Connection.Open();
+            da.Fill(ds);
+            return ds;
+        }
+        finally
+        {
+            CerrarConexion();
+        }
     }
 
     /// <summary>
@@ -144,11 +165,18 @@ abstract class DbDataAccess
     /// <returns></returns>
     public async Task<DataSet> ExecuteDataSetAsync(string sqlCommand, CommandType commandType, int commandTimeout, params SqlParameter[] args)
     {
-        var ds = new DataSet();
-        var da = CrearDataAdapter(sqlCommand, commandType, commandTimeout, args);
-        await da.SelectCommand.Connection.OpenAsync();
-        da.Fill(ds);
-        return ds;
+        try
+        {
+            var ds = new DataSet();
+            var da = CrearDataAdapter(sqlCommand, commandType, commandTimeout, args);
+            await da.SelectCommand.Connection.OpenAsync();
+            da.Fill(ds);
+            return ds;
+        }
+        finally
+        {
+            CerrarConexion();
+        }
     }
 
     /// <summary>
@@ -162,11 +190,18 @@ abstract class DbDataAccess
     /// <returns></returns>
     public DataSet ExecuteDataSet(SqlTransaction transaction, string sqlCommand, CommandType commandType, params SqlParameter[] args)
     {
-        var ds = new DataSet();
-        var da = CrearDataAdapter(transaction, sqlCommand, commandType, args);
-        da.SelectCommand.Connection.Open();
-        da.Fill(ds);
-        return ds;
+        try
+        {
+            var ds = new DataSet();
+            var da = CrearDataAdapter(transaction, sqlCommand, commandType, args);
+            da.SelectCommand.Connection.Open();
+            da.Fill(ds);
+            return ds;
+        }
+        finally
+        {
+            CerrarConexion();
+        }
     }
 
     /// <summary>
@@ -180,11 +215,18 @@ abstract class DbDataAccess
     /// <returns></returns>
     public async Task<DataSet> ExecuteDataSetAsync(SqlTransaction transaction, string sqlCommand, CommandType commandType, params SqlParameter[] args)
     {
-        var ds = new DataSet();
-        var da = CrearDataAdapter(transaction, sqlCommand, commandType, args);
-        await da.SelectCommand.Connection.OpenAsync();
-        da.Fill(ds);
-        return ds;
+        try
+        {
+            var ds = new DataSet();
+            var da = CrearDataAdapter(transaction, sqlCommand, commandType, args);
+            await da.SelectCommand.Connection.OpenAsync();
+            da.Fill(ds);
+            return ds;
+        }
+        finally
+        {
+            CerrarConexion();
+        }
     }
 
     /// <summary>
@@ -197,11 +239,18 @@ abstract class DbDataAccess
     /// <returns></returns>
     public DataSet ExecuteDataSet(SqlTransaction transaction, string sqlCommand, CommandType commandType, int commandTimeout, params SqlParameter[] args)
     {
-        var ds = new DataSet();
-        var da = CrearDataAdapter(transaction, sqlCommand, commandType, commandTimeout, args);
-        da.SelectCommand.Connection.Open();
-        da.Fill(ds);
-        return ds;
+        try
+        {
+            var ds = new DataSet();
+            var da = CrearDataAdapter(transaction, sqlCommand, commandType, commandTimeout, args);
+            da.SelectCommand.Connection.Open();
+            da.Fill(ds);
+            return ds;
+        }
+        finally
+        {
+            CerrarConexion();
+        }
     }
 
     /// <summary>
@@ -214,11 +263,18 @@ abstract class DbDataAccess
     /// <returns></returns>
     public async Task<DataSet> ExecuteDataSetAsync(SqlTransaction transaction, string sqlCommand, CommandType commandType, int commandTimeout, params SqlParameter[] args)
     {
-        var ds = new DataSet();
-        var da = CrearDataAdapter(transaction, sqlCommand, commandType, commandTimeout, args);
-        await da.SelectCommand.Connection.OpenAsync();
-        da.Fill(ds);
-        return ds;
+        try
+        {
+            var ds = new DataSet();
+            var da = CrearDataAdapter(transaction, sqlCommand, commandType, commandTimeout, args);
+            await da.SelectCommand.Connection.OpenAsync();
+            da.Fill(ds);
+            return ds;
+        }
+        finally
+        {
+            CerrarConexion();
+        }
     }
 
     /// <summary>
