@@ -27,7 +27,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SqLiteHelper", "SqLiteHelpe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InformixHelper4", "InformixHelper4\InformixHelper4.csproj", "{32A46A50-5043-4B81-8FF9-B2A4F05BEF91}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MsSqlServerHelper", "MsSqlServerHelper\MsSqlServerHelper.csproj", "{068C6289-C4FF-478D-9956-1D7C12D99298}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MsSqlServerHelper", "MsSqlServerHelper\MsSqlServerHelper.csproj", "{068C6289-C4FF-478D-9956-1D7C12D99298}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PostgresHelperCore", "PostgresHelperCore\PostgresHelperCore.csproj", "{995509B2-F723-4E11-A299-013EB3F2181B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -173,12 +175,24 @@ Global
 		{068C6289-C4FF-478D-9956-1D7C12D99298}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{068C6289-C4FF-478D-9956-1D7C12D99298}.Release|x86.ActiveCfg = Release|Any CPU
 		{068C6289-C4FF-478D-9956-1D7C12D99298}.Release|x86.Build.0 = Release|Any CPU
+		{995509B2-F723-4E11-A299-013EB3F2181B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{995509B2-F723-4E11-A299-013EB3F2181B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{995509B2-F723-4E11-A299-013EB3F2181B}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{995509B2-F723-4E11-A299-013EB3F2181B}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{995509B2-F723-4E11-A299-013EB3F2181B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{995509B2-F723-4E11-A299-013EB3F2181B}.Debug|x86.Build.0 = Debug|Any CPU
+		{995509B2-F723-4E11-A299-013EB3F2181B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{995509B2-F723-4E11-A299-013EB3F2181B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{995509B2-F723-4E11-A299-013EB3F2181B}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{995509B2-F723-4E11-A299-013EB3F2181B}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{995509B2-F723-4E11-A299-013EB3F2181B}.Release|x86.ActiveCfg = Release|Any CPU
+		{995509B2-F723-4E11-A299-013EB3F2181B}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		VisualSVNWorkingCopyRoot = .
 		SolutionGuid = {0F8A3C02-DB23-4BDA-8B85-FE8EEC888073}
+		VisualSVNWorkingCopyRoot = .
 	EndGlobalSection
 EndGlobal
