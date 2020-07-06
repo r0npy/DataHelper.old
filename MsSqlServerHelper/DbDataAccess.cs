@@ -98,7 +98,8 @@ abstract class DbDataAccess
         {
             var ds = new DataSet();
             var da = CrearDataAdapter(sqlCommand, commandType, args);
-            da.SelectCommand.Connection.Open();
+            if (da.SelectCommand.Connection.State != ConnectionState.Open)
+                da.SelectCommand.Connection.Open();
             da.Fill(ds);
             return ds;
         }
@@ -121,7 +122,8 @@ abstract class DbDataAccess
         {
             var ds = new DataSet();
             var da = CrearDataAdapter(sqlCommand, commandType, args);
-            await da.SelectCommand.Connection.OpenAsync();
+            if (da.SelectCommand.Connection.State != ConnectionState.Open)
+                await da.SelectCommand.Connection.OpenAsync();
             da.Fill(ds);
             return ds;
         }
@@ -145,7 +147,8 @@ abstract class DbDataAccess
         {
             var ds = new DataSet();
             var da = CrearDataAdapter(sqlCommand, commandType, commandTimeout, args);
-            da.SelectCommand.Connection.Open();
+            if (da.SelectCommand.Connection.State != ConnectionState.Open)
+                da.SelectCommand.Connection.Open();
             da.Fill(ds);
             return ds;
         }
@@ -169,7 +172,8 @@ abstract class DbDataAccess
         {
             var ds = new DataSet();
             var da = CrearDataAdapter(sqlCommand, commandType, commandTimeout, args);
-            await da.SelectCommand.Connection.OpenAsync();
+            if (da.SelectCommand.Connection.State != ConnectionState.Open)
+                await da.SelectCommand.Connection.OpenAsync();
             da.Fill(ds);
             return ds;
         }
@@ -194,7 +198,8 @@ abstract class DbDataAccess
         {
             var ds = new DataSet();
             var da = CrearDataAdapter(transaction, sqlCommand, commandType, args);
-            da.SelectCommand.Connection.Open();
+            if (da.SelectCommand.Connection.State != ConnectionState.Open)
+                da.SelectCommand.Connection.Open();
             da.Fill(ds);
             return ds;
         }
@@ -219,7 +224,8 @@ abstract class DbDataAccess
         {
             var ds = new DataSet();
             var da = CrearDataAdapter(transaction, sqlCommand, commandType, args);
-            await da.SelectCommand.Connection.OpenAsync();
+            if (da.SelectCommand.Connection.State != ConnectionState.Open)
+                await da.SelectCommand.Connection.OpenAsync();
             da.Fill(ds);
             return ds;
         }
@@ -243,7 +249,8 @@ abstract class DbDataAccess
         {
             var ds = new DataSet();
             var da = CrearDataAdapter(transaction, sqlCommand, commandType, commandTimeout, args);
-            da.SelectCommand.Connection.Open();
+            if (da.SelectCommand.Connection.State != ConnectionState.Open)
+                da.SelectCommand.Connection.Open();
             da.Fill(ds);
             return ds;
         }
@@ -267,7 +274,8 @@ abstract class DbDataAccess
         {
             var ds = new DataSet();
             var da = CrearDataAdapter(transaction, sqlCommand, commandType, commandTimeout, args);
-            await da.SelectCommand.Connection.OpenAsync();
+            if (da.SelectCommand.Connection.State != ConnectionState.Open)
+                await da.SelectCommand.Connection.OpenAsync();
             da.Fill(ds);
             return ds;
         }
