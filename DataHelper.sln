@@ -29,7 +29,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InformixHelper4", "Informix
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MsSqlServerHelper", "MsSqlServerHelper\MsSqlServerHelper.csproj", "{068C6289-C4FF-478D-9956-1D7C12D99298}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PostgresHelperCore", "PostgresHelperCore\PostgresHelperCore.csproj", "{995509B2-F723-4E11-A299-013EB3F2181B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PostgresHelperCore", "PostgresHelperCore\PostgresHelperCore.csproj", "{995509B2-F723-4E11-A299-013EB3F2181B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -192,7 +192,7 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {0F8A3C02-DB23-4BDA-8B85-FE8EEC888073}
 		VisualSVNWorkingCopyRoot = .
+		SolutionGuid = {0F8A3C02-DB23-4BDA-8B85-FE8EEC888073}
 	EndGlobalSection
 EndGlobal

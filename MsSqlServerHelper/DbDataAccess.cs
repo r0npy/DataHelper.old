@@ -82,6 +82,14 @@ abstract class DbDataAccess
         Conexion.Dispose();
     }
 
+    public async Task CerrarConexionAsync()
+    {
+        if (Conexion == null) return;
+        if (Conexion.State != ConnectionState.Closed)
+            await Conexion.CloseAsync();
+        await Conexion.DisposeAsync();
+    }
+
     #endregion
 
     #region Lecturas
@@ -129,7 +137,7 @@ abstract class DbDataAccess
         }
         finally
         {
-            CerrarConexion();
+            await CerrarConexionAsync();
         }
     }
 
@@ -179,7 +187,7 @@ abstract class DbDataAccess
         }
         finally
         {
-            CerrarConexion();
+            await CerrarConexionAsync();
         }
     }
 
@@ -231,7 +239,7 @@ abstract class DbDataAccess
         }
         finally
         {
-            CerrarConexion();
+            await CerrarConexionAsync();
         }
     }
 
@@ -281,7 +289,7 @@ abstract class DbDataAccess
         }
         finally
         {
-            CerrarConexion();
+            await CerrarConexionAsync();
         }
     }
 
@@ -469,7 +477,7 @@ abstract class DbDataAccess
         }
         finally
         {
-            CerrarConexion();
+            await CerrarConexionAsync();
         }
     }
 
@@ -531,7 +539,7 @@ abstract class DbDataAccess
         }
         finally
         {
-            CerrarConexion();
+            await CerrarConexionAsync();
         }
     }
 
@@ -745,7 +753,7 @@ abstract class DbDataAccess
         }
         finally
         {
-            CerrarConexion();
+            await CerrarConexionAsync();
         }
     }
 
@@ -803,7 +811,7 @@ abstract class DbDataAccess
         }
         finally
         {
-            CerrarConexion();
+            await CerrarConexionAsync();
         }
     }
 
@@ -847,7 +855,7 @@ abstract class DbDataAccess
         }
         finally
         {
-            CerrarConexion();
+            await CerrarConexionAsync();
         }
     }
 
@@ -893,7 +901,7 @@ abstract class DbDataAccess
         }
         finally
         {
-            CerrarConexion();
+            await CerrarConexionAsync();
         }
     }
 
@@ -987,7 +995,7 @@ abstract class DbDataAccess
         }
         finally
         {
-            CerrarConexion();
+            await CerrarConexionAsync();
         }
     }
 
@@ -1033,7 +1041,7 @@ abstract class DbDataAccess
         }
         finally
         {
-            CerrarConexion();
+            await CerrarConexionAsync();
         }
     }
 
