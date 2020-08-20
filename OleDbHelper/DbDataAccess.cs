@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 /// </summary>
 abstract class DbDataAccess
 {
-    #region Declaración de Variables d
+    #region Declaración de Variables
 
     protected string Servidor { get; set; }
     protected string BaseDatos { get; set; }
