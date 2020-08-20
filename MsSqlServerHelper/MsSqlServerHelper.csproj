@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <AssemblyName>Universal.Data.SqlServer</AssemblyName>
-    <Version>5.0.0.2</Version>
+    <Version>5.0.0.3</Version>
     <Authors>ronpy</Authors>
     <Company>Hola Paraguay S.A.</Company>
   </PropertyGroup>
