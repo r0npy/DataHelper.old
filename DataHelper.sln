@@ -31,6 +31,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MsSqlServerHelper", "MsSqlS
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PostgresHelperCore", "PostgresHelperCore\PostgresHelperCore.csproj", "{995509B2-F723-4E11-A299-013EB3F2181B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OleDbCoreHelper", "OleDbCoreHelper\OleDbCoreHelper.csproj", "{0B919E1B-B7D2-450B-8EB4-9843A71B767A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -187,12 +189,24 @@ Global
 		{995509B2-F723-4E11-A299-013EB3F2181B}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{995509B2-F723-4E11-A299-013EB3F2181B}.Release|x86.ActiveCfg = Release|Any CPU
 		{995509B2-F723-4E11-A299-013EB3F2181B}.Release|x86.Build.0 = Release|Any CPU
+		{0B919E1B-B7D2-450B-8EB4-9843A71B767A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B919E1B-B7D2-450B-8EB4-9843A71B767A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B919E1B-B7D2-450B-8EB4-9843A71B767A}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{0B919E1B-B7D2-450B-8EB4-9843A71B767A}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{0B919E1B-B7D2-450B-8EB4-9843A71B767A}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{0B919E1B-B7D2-450B-8EB4-9843A71B767A}.Debug|x86.Build.0 = Debug|Any CPU
+		{0B919E1B-B7D2-450B-8EB4-9843A71B767A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B919E1B-B7D2-450B-8EB4-9843A71B767A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0B919E1B-B7D2-450B-8EB4-9843A71B767A}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{0B919E1B-B7D2-450B-8EB4-9843A71B767A}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{0B919E1B-B7D2-450B-8EB4-9843A71B767A}.Release|x86.ActiveCfg = Release|Any CPU
+		{0B919E1B-B7D2-450B-8EB4-9843A71B767A}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		VisualSVNWorkingCopyRoot = .
 		SolutionGuid = {0F8A3C02-DB23-4BDA-8B85-FE8EEC888073}
+		VisualSVNWorkingCopyRoot = .
 	EndGlobalSection
 EndGlobal
